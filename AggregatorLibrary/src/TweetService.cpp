@@ -7,9 +7,17 @@
 //============================================================================
 
 #include <iostream>
+#include "aggregator.h"
 using namespace std;
 
+void test(int* i) {
+	(*i)++;
+}
+
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	int i {0};
+	bool changed {false};
+	test(&i);
+	cout << i << endl;
 	return 0;
 }
