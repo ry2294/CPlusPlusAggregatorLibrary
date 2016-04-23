@@ -25,15 +25,20 @@ namespace GraphBuilderService {
 
 	class Task {
 		public:
-			virtual unordered_set<string> getInDegree() = 0;
-			virtual void addInDegree(string) = 0;
-			virtual void removeInDegree(string) = 0;
-			virtual bool isInDegreeEmpty() = 0;
-			virtual unordered_set<string> getOutDegree() = 0;
-			virtual void addOutDegree(string) = 0;
-			virtual shared_ptr<Runnable> getNode() = 0;
-			virtual void run() = 0;
-			virtual ~Task() {}
+			Task(shared_ptr<Runnable>);
+			unordered_set<string> getInDegree();
+			void addInDegree(string, shared_ptr<Runnable>);
+			void removeInDegree(string);
+			bool isInDegreeEmpty();
+			unordered_set<string> getOutDegree();
+			void addOutDegree(string);
+			void run();
+			~Task();
+		private:
+			shared_ptr<Runnable> node;
+			unordered_map<string, shared_ptr<Runnable>> dependencies;
+			unordered_set<string> indegree;
+			unordered_set<string> outdegree;
 	};
 }
 

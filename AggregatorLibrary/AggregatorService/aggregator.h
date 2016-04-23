@@ -13,7 +13,7 @@ namespace AggregatorService {
 	public:
 		virtual string getLabel() const = 0;
 		virtual unordered_set<string> getDependencies() const = 0;
-		virtual void run(unordered_map<string, Runnable>) = 0;
+		virtual void run(unordered_map<string, shared_ptr<Runnable>>) = 0;
 		virtual ~Runnable() {}
 	};
 
