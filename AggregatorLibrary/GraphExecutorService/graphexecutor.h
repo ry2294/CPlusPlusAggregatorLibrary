@@ -15,9 +15,15 @@ namespace GraphExecutorService {
 
 	class TaskExecutorPool {
 	public:
-		virtual void submit() = 0;
-		virtual void take() = 0;
+		virtual void submit(shared_ptr<Runnable>) = 0;
+		virtual shared_ptr<Runnable> take() = 0;
 		virtual ~TaskExecutorPool(){}
+	};
+
+	class ThreadPool {
+	public:
+		virtual void submit(shared_ptr<Task>) = 0;
+		virtual ~ThreadPool() {}
 	};
 }
 
