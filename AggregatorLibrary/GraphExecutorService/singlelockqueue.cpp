@@ -10,14 +10,14 @@ using namespace GraphExecutorService;
 
 /* Following implementation of a thread-safe queue using condition-varaible from C++-Concurency in Action */
 
-class ThreadSafeQueue {
+class SingleLockQueue : public ThreadSafeQueue {
 private:
     mutable mutex m;
     queue<shared_ptr<Task>> task_queue;
     condition_variable condition;
     
 public:
-    ThreadSafeQueue(){}
+    SingleLockQueue(){}
     
     void push(shared_ptr<Task> task){
         lock_guard<mutex> lk(m);
@@ -37,6 +37,4 @@ public:
         lock_guard<mutex> lk(m);
         return task_queue.empty();
     }
-
-    
 };
