@@ -8,9 +8,12 @@
 
 #include <iostream>
 #include "aggregator.h"
+#include "graphexecutor.h"
 #include <unordered_set>
+#include <singlelockqueue.cpp>
 using namespace std;
 using namespace AggregatorService;
+using namespace GraphExecutorService;
 
 class TestHashSet {
 private:
@@ -28,7 +31,11 @@ public:
 		}
 	}
 };
-
+class TestQueue {
+	SingleLockQueue<int> slq{};
+	
+	
+};
 int main() {
 	TestHashSet obj;
 	obj.addTasks("a");
