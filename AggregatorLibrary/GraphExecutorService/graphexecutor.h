@@ -26,18 +26,18 @@ namespace GraphExecutorService {
 		virtual ~ThreadPool() {}
 	};
 	
-
+	template<typename T>
 	class ThreadSafeQueue {
 	public:
-		virtual void push(shared_ptr<Task>) =0;
-		virtual shared_ptr<Task> wait_and_pop() =0;
+		virtual void push(T) =0;
+		virtual T wait_and_pop() =0;
 		virtual bool empty() const =0;
 		virtual ~ThreadSafeQueue() {}
 	};
 
 	class QueueFactory {
 	public:
-		static shared_ptr<ThreadSafeQueue> newSingleLockQueue();
+		static shared_ptr<ThreadSafeQueue<Task>> newSingleLockQueue();
 	};
 }
 
