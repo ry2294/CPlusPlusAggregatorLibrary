@@ -9,14 +9,15 @@
 #include <iostream>
 #include "aggregator.h"
 using namespace std;
+using namespace AggregatorService;
 
 void test(int* i) {
 	(*i)++;
 }
 
 int main() {
+	shared_ptr<Aggregator> aggregator = AggregatorFactory::newFixedThreadPoolAggregator();
 	int i {0};
-	bool changed {false};
 	test(&i);
 	cout << i << endl;
 	return 0;
