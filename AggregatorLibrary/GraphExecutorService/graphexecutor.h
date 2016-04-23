@@ -25,6 +25,14 @@ namespace GraphExecutorService {
 		virtual void submit(shared_ptr<Task>) = 0;
 		virtual ~ThreadPool() {}
 	};
+	
+	class ThreadSafeQueue {
+	public:
+		virtual void push(shared_ptr<Task>) =0;
+		virtual shared_ptr<Task> wait_and_pop() =0;
+		virtual bool empty() =0;
+		virtual ~ThreadSafeQueue() {}
+	};
 }
 
 #endif /* GRAPHEXECUTOR_H_ */
