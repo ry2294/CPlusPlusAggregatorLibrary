@@ -4,6 +4,6 @@
 using namespace GraphExecutorService;
 
 shared_ptr<ThreadSafeQueue<Task>> QueueFactory::newSingleLockQueue() {
-	shared_ptr<ThreadSafeQueue<Task>> queue(new SingleLockQueue<Task>());
-	return queue;
+	//shared_ptr<ThreadSafeQueue<Task>> queue(new SingleLockQueue<Task>());
+	return nullptr;
 }
