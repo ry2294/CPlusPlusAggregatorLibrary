@@ -11,6 +11,7 @@
 #include "graphexecutor.h"
 #include <unordered_set>
 #include <singlelockqueue.cpp>
+#include <thread>
 using namespace std;
 using namespace AggregatorService;
 using namespace GraphExecutorService;
@@ -31,21 +32,18 @@ public:
 		}
 	}
 };
-class TestQueue {
-	SingleLockQueue<int> slq{};
-	
-	
-};
+
+
 int main() {
-	TestHashSet obj;
-	obj.addTasks("a");
-	obj.addTasks("b");
-	obj.addTasks("c");
-	unordered_set<string> strings = obj.getTasks();
-	strings.insert("d");
-	obj.printTasks();
-	for(auto s : strings) {
-		cout << s << endl;
-	}
+	 TestHashSet obj;
+	 obj.addTasks("a");
+	 obj.addTasks("b");
+	 obj.addTasks("c");
+	 unordered_set<string> strings = obj.getTasks();
+	 strings.insert("d");
+	 obj.printTasks();
+	 for(auto s : strings) {
+	 	cout << s << endl;
+	 }
 	return 0;
 }

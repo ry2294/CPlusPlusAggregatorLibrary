@@ -37,4 +37,9 @@ public:
         lock_guard<mutex> lk(m);
         return task_queue.empty();
     }
+    
+    int size() const {
+        lock_guard<mutex> lk(m);
+        return task_queue.size();
+    }
 };
