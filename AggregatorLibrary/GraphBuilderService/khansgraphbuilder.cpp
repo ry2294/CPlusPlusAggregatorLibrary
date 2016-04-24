@@ -19,6 +19,10 @@ public:
 		outDegrees.insert({vertex->getLabel(), {}});
 	}
 
+	int size() {
+		return adjacencyMap.size();
+	}
+
 	void constructGraph() {
 		for(auto it = adjacencyMap.begin(); it != adjacencyMap.end(); it++) {
 			shared_ptr<Task> destTask = it->second;

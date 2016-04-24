@@ -37,6 +37,7 @@ namespace GraphBuilderService {
 		virtual bool isGraphCyclic() = 0;
 		virtual shared_ptr<Task> getTask(string) = 0;
 		virtual queue<shared_ptr<Task>> getIndependentTasks() = 0;
+		virtual int size() = 0;
 		virtual ~Graph() {}
 	};
 
