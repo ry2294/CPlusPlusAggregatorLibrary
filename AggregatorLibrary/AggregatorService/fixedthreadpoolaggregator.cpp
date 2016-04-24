@@ -18,6 +18,9 @@ public:
 
 	void execute() {
 		graph->constructGraph();
+		if(graph->isGraphCyclic()) {
+			throw CyclicDependencyFoundException{};
+		}
 		// add executor code
 	}
 

@@ -31,6 +31,16 @@ void Task::addOutDegree(string nodeLabel) {
 	Task::outdegree.insert(nodeLabel);
 }
 
+shared_ptr<Runnable> Task::getNode() {
+	return Task::node;
+}
+
+string Task::getLabel() {
+	return Task::node->getLabel();
+}
+
 void Task::run() {
 	Task::node->run(Task::dependencies);
 }
+ Task::~Task() {
+ }

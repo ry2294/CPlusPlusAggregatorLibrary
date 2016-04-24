@@ -32,6 +32,8 @@ namespace GraphBuilderService {
 			bool isInDegreeEmpty();
 			unordered_set<string> getOutDegree();
 			void addOutDegree(string);
+			shared_ptr<Runnable> getNode();
+			string getLabel();
 			void run();
 			~Task();
 		private:
