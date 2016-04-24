@@ -19,11 +19,14 @@ namespace GraphExecutorService {
 		virtual shared_ptr<Runnable> take() = 0;
 		virtual ~TaskExecutorPool(){}
 	};
-
+	
+	template<typename T>
 	class ThreadPool {
-	public:
-		virtual void submit(shared_ptr<Task>) = 0;
+	private:
 		virtual ~ThreadPool() {}
+		virtual void worker_thread() {}
+	public:
+		virtual void submit(T) = 0;
 	};
 	
 	template<typename T>
@@ -32,6 +35,7 @@ namespace GraphExecutorService {
 		virtual void push(T) =0;
 		virtual T wait_and_pop() =0;
 		virtual bool empty() const =0;
+		virtual int size() const=0;
 		virtual ~ThreadSafeQueue() {}
 	};
 
