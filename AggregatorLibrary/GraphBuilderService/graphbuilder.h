@@ -4,25 +4,12 @@
 #include "aggregator.h"
 #include <unordered_set>
 #include <string>
+#include <queue>
 
 using namespace std;
 using namespace AggregatorService;
 
 namespace GraphBuilderService {
-	class Graph {
-	public:
-		virtual void addVertex(shared_ptr<Runnable>) = 0;
-		virtual void constructGraph() = 0;
-		virtual bool isGraphCyclic() = 0;
-		virtual ~Graph() {}
-	};
-
-	class GraphBuilderFactory {
-	public:
-		GraphBuilderFactory() = delete;
-		static shared_ptr<Graph> newKhansGraphBuilder();
-	};
-
 	class Task {
 		public:
 			Task(shared_ptr<Runnable>);
@@ -41,6 +28,22 @@ namespace GraphBuilderService {
 			unordered_map<string, shared_ptr<Runnable>> dependencies;
 			unordered_set<string> indegree;
 			unordered_set<string> outdegree;
+	};
+
+	class Graph {
+	public:
+		virtual void addVertex(shared_ptr<Runnable>) = 0;
+		virtual void constructGraph() = 0;
+		virtual bool isGraphCyclic() = 0;
+		virtual shared_ptr<Task> getTask(string) = 0;
+		virtual queue<shared_ptr<Task>> getIndependentTasks() = 0;
+		virtual ~Graph() {}
+	};
+
+	class GraphBuilderFactory {
+	public:
+		GraphBuilderFactory() = delete;
+		static shared_ptr<Graph> newKhansGraphBuilder();
 	};
 }
 

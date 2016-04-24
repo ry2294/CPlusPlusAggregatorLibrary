@@ -49,6 +49,8 @@ public:
 	bool isGraphCyclic() {
 		int visitedVertices = 0;
 		queue<string> tasksQueue;
+		unordered_map<string, unordered_set<string>> inDegrees = this->inDegrees;
+		unordered_map<string, unordered_set<string>> outDegrees = this->outDegrees;
 		for(auto it = inDegrees.begin(); it != inDegrees.end(); it++) {
 			unordered_set<string>& dependencies = it->second;
 			if(dependencies.empty())
@@ -73,5 +75,24 @@ public:
 			visitedVertices++;
 		}
 		return visitedVertices != adjacencyMap.size();
+	}
+
+	queue<shared_ptr<Task>> getIndependentTasks() {
+		queue<shared_ptr<Task>> tasksQueue;
+		for(auto it = adjacencyMap.begin(); it != adjacencyMap.end(); it++) {
+			shared_ptr<Task> task = it->second;
+			if(task->isInDegreeEmpty())
+				tasksQueue.push(task);
+		}
+		return tasksQueue;
+	}
+
+	shared_ptr<Task> getTask(string label) {
+		auto adjMapSearch = adjacencyMap.find(label);
+		if(adjMapSearch != adjacencyMap.end()) {
+			shared_ptr<Task> task = adjMapSearch->second;
+			return task;
+		}
+		return nullptr;
 	}
 };

@@ -13,11 +13,11 @@ namespace GraphExecutorService {
 		virtual ~GraphExecutor() {}
 	};
 
-	class TaskExecutorPool {
+	class TaskPoolExecutor {
 	public:
-		virtual void submit(shared_ptr<Runnable>) = 0;
-		virtual shared_ptr<Runnable> take() = 0;
-		virtual ~TaskExecutorPool(){}
+		virtual void submit(shared_ptr<Task>) = 0;
+		virtual shared_ptr<Task> take() = 0;
+		virtual ~TaskPoolExecutor(){}
 	};
 	
 	template<typename T>
@@ -39,9 +39,11 @@ namespace GraphExecutorService {
 		virtual ~ThreadSafeQueue() {}
 	};
 
-	class QueueFactory {
+	class GraphExecutorFactory {
 	public:
 		static shared_ptr<ThreadSafeQueue<Task>> newSingleLockQueue();
+		static shared_ptr<TaskPoolExecutor> newQueueTaskExecutor();
+		static shared_ptr<GraphExecutor> newKhansGraphExecutor();
 	};
 }
 
