@@ -2,6 +2,7 @@
 #define GRAPHEXECUTOR_H_
 
 #include "graphbuilder.h"
+#include <future>
 
 using namespace std;
 using namespace GraphBuilderService;
@@ -21,15 +22,6 @@ namespace GraphExecutorService {
 	};
 	
 	template<typename T>
-	class ThreadPool {
-	private:
-		virtual ~ThreadPool() {}
-		virtual void worker_thread() {}
-	public:
-		virtual void submit(T) = 0;
-	};
-	
-	template<typename T>
 	class ThreadSafeQueue {
 	public:
 		virtual void push(T) =0;
@@ -39,11 +31,18 @@ namespace GraphExecutorService {
 		virtual ~ThreadSafeQueue() {}
 	};
 
+	class ThreadPool {
+	public:
+		virtual void submit(pair<shared_ptr<Task>, shared_ptr<ThreadSafeQueue<shared_future<shared_ptr<Task>>>>>) = 0;
+		virtual ~ThreadPool() {}
+	};
+
 	class GraphExecutorFactory {
 	public:
-		static shared_ptr<ThreadSafeQueue<Task>> newSingleLockQueue();
+		static shared_ptr<ThreadSafeQueue<shared_future<shared_ptr<Task>>>> newSingleLockQueue();
 		static shared_ptr<TaskPoolExecutor> newQueueTaskExecutor();
 		static shared_ptr<GraphExecutor> newKhansGraphExecutor();
+		static shared_ptr<ThreadPool> newSingletonThreadPool();
 	};
 }
 

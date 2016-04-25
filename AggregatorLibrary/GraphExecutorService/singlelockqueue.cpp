@@ -1,14 +1,13 @@
+#ifndef SINGLELOCKQUEUE_CPP_
+#define SINGLELOCKQUEUE_CPP_
+
 #include "queue"
 #include <mutex>
 #include "graphexecutor.h"
-#include "graphbuilder.h"
-
-
 
 using namespace std;
 using namespace GraphExecutorService;
 
-/* Following implementation of a thread-safe queue using condition-varaible from C++-Concurency in Action */
 template<typename T>
 class SingleLockQueue : public ThreadSafeQueue<T> {
 private:
@@ -42,4 +41,8 @@ public:
         lock_guard<mutex> lk(m);
         return task_queue.size();
     }
+
+    ~SingleLockQueue() {}
 };
+
+#endif /* SINGLELOCKQUEUE_CPP_ */
