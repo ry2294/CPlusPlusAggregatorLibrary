@@ -12,6 +12,10 @@ namespace GraphExecutorService {
 	 * */
 	class GraphExecutor {
 	public:
+		/* *
+		* The execute function communicates with the TaskPoolExecutor to execute the graph.
+		* It takes a shared_ptr of a GraphBuilder and executes the graph.
+		* */
 		virtual void execute(std::shared_ptr<GraphBuilder>) = 0;
 		virtual ~GraphExecutor() {}
 	};
@@ -26,12 +30,32 @@ namespace GraphExecutorService {
 		virtual ~TaskPoolExecutor(){}
 	};
 	
+	/* *
+	* Interface for a ThreadSafeQueue which is used by the ThreadPool and used for implementing task queue.
+	* */ 
 	template<typename T>
 	class ThreadSafeQueue {
 	public:
+		/* *
+		* The push function allows the program to add an element on to the threadsafequeue.
+		* */
 		virtual void push(T) =0;
+		
+		/* *
+		* The wait_and_pop function pops the top element and returns it. In case the queue is empty and a 
+		* thread is requesting for wait and pop, then the thread must be asked to wait and notified as soon as 
+		* an element is added into the queue.
+		* */
 		virtual T wait_and_pop() =0;
+		
+		/* *
+		* The empty function checks if the queue is empty or not.
+		* */
 		virtual bool empty() const =0;
+		
+		/* *
+		* The size function returns the number of elements in the queue.
+		* */
 		virtual int size() const=0;
 		virtual ~ThreadSafeQueue() {}
 	};
@@ -39,9 +63,14 @@ namespace GraphExecutorService {
 	/*
 	 * Interface for ThreadPool which maintains worker threads for executing tasks submitted by TaskPoolExecutors.
 	 * */
+	typedef  std::shared_ptr<ThreadSafeQueue<std::shared_future<std::shared_ptr<Task>>>> return_queue; 
 	class ThreadPool {
 	public:
-		virtual void submit(std::pair<std::shared_ptr<Task>, std::shared_ptr<ThreadSafeQueue<std::shared_future<std::shared_ptr<Task>>>>>) = 0;
+		/* *
+		* The submit functions takes a pair of shared_ptr of Task and shared_ptr to a threadsafe queue and
+		* adds this pair into the task_queue.
+		* */
+		virtual void submit(std::pair<std::shared_ptr<Task>,return_queue>) = 0;
 		virtual ~ThreadPool() {}
 	};
 

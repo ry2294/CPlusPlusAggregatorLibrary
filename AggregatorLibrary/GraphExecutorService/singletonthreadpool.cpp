@@ -56,7 +56,7 @@ public:
 		}
 	}
 
-    void submit(pair<shared_ptr<Task>, shared_ptr<ThreadSafeQueue<shared_future<shared_ptr<Task>>>>> task){
+    void submit(pair<shared_ptr<Task>, return_queue> task){
         task_queue.push(task);
     }
 
