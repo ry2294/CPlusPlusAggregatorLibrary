@@ -10,7 +10,7 @@ private:
 public:
 	KhansGraphExecutor() : taskPoolExecutor{GraphExecutorFactory::newQueueTaskExecutor()}{
 	}
-	void execute(shared_ptr<Graph> graph) {
+	void execute(shared_ptr<GraphBuilder> graph) {
 		queue<shared_ptr<Task>> independentTasks = graph->getIndependentTasks();
 		while(!independentTasks.empty()) {
 			shared_ptr<Task> task = independentTasks.front();

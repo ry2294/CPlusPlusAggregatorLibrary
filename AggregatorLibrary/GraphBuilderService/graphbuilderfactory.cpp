@@ -4,8 +4,8 @@
 using namespace std;
 using namespace GraphBuilderService;
 
-shared_ptr<Graph> GraphBuilderFactory::newKhansGraphBuilder() {
-	shared_ptr<Graph> graph (new KhansGraphBuilder());
+shared_ptr<GraphBuilder> GraphBuilderFactory::newKhansGraphBuilder() {
+	shared_ptr<GraphBuilder> graph (new KhansGraphBuilder());
 	return graph;
 }
 

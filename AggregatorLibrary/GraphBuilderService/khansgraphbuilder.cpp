@@ -4,7 +4,7 @@
 using namespace std;
 using namespace GraphBuilderService;
 
-class KhansGraphBuilder : public Graph {
+class KhansGraphBuilder : public GraphBuilder {
 private:
 	unordered_map<string, shared_ptr<Task>> adjacencyMap;
 	unordered_map<string, unordered_set<string>> inDegrees;

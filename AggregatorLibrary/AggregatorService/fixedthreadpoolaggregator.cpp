@@ -9,7 +9,7 @@ using namespace GraphExecutorService;
 
 class FixedThreadPoolAggregator : public Aggregator {
 private:
-	shared_ptr<Graph> graph;
+	shared_ptr<GraphBuilder> graph;
 	shared_ptr<GraphExecutor> graphExecutor;
 public:
 	FixedThreadPoolAggregator() : graph(GraphBuilderFactory::newKhansGraphBuilder()),
@@ -20,7 +20,7 @@ public:
 		graph->addVertex(node);
 	}
 
-	void execute() {
+	void execute() throw(CyclicDependencyFoundException) {
 		graph->constructGraph();
 		if(graph->isGraphCyclic()) {
 			throw CyclicDependencyFoundException{};

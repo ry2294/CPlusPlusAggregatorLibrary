@@ -8,6 +8,10 @@
 
 namespace GraphBuilderService {
 	using namespace AggregatorService;
+
+	/*
+	 * Represents the Task wrapper class that the aggregator library uses to wrap a Client's task.
+	 * */
 	class Task {
 		public:
 			Task(std::shared_ptr<Runnable>);
@@ -28,7 +32,10 @@ namespace GraphBuilderService {
 			std::unordered_set<std::string> outdegree;
 	};
 
-	class Graph {
+	/*
+	 * Represents the GraphBuilder interface which will be used by Aggregtors to create a Graph and construct edges.
+	 * */
+	class GraphBuilder {
 	public:
 		virtual void addVertex(std::shared_ptr<Runnable>) = 0;
 		virtual void constructGraph() = 0;
@@ -36,13 +43,16 @@ namespace GraphBuilderService {
 		virtual std::shared_ptr<Task> getTask(std::string) = 0;
 		virtual std::queue<std::shared_ptr<Task>> getIndependentTasks() = 0;
 		virtual int size() = 0;
-		virtual ~Graph() {}
+		virtual ~GraphBuilder() {}
 	};
 
+	/*
+	 *Factory for generating Graph builders
+	 * */
 	class GraphBuilderFactory {
 	public:
 		GraphBuilderFactory() = delete;
-		static std::shared_ptr<Graph> newKhansGraphBuilder();
+		static std::shared_ptr<GraphBuilder> newKhansGraphBuilder();
 	};
 }
 
