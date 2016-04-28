@@ -37,11 +37,29 @@ namespace GraphBuilderService {
 	 */
 	class GraphBuilder {
 	public:
+		/*
+		 * Adds a vertex to the graph where the vertex is a Task instance which wraps the input Runnable node passed by the caller.
+		 * */
 		virtual void addVertex(std::shared_ptr<Runnable>) = 0;
+		/*
+		 * Constructs edges between the vertices by traversing each vertex and processing its dependencies.
+		 * */
 		virtual void constructGraph() = 0;
+		/*
+		 * Checks whether the constructed graph is cyclis.
+		 * */
 		virtual bool isGraphCyclic() = 0;
+		/*
+		 * Returns a Task matching the input label.
+		 * */
 		virtual std::shared_ptr<Task> getTask(std::string) = 0;
+		/*
+		 * Returns a queue of all the independent tasks which don't have any dependencies.
+		 * */
 		virtual std::queue<std::shared_ptr<Task>> getIndependentTasks() = 0;
+		/*
+		 * Returns the size of the constructed graph.
+		 * */
 		virtual int size() = 0;
 		virtual ~GraphBuilder() {}
 	};
