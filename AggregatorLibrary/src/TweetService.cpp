@@ -2,11 +2,11 @@
 #include "aggregator.h"
 #include "graphexecutor.h"
 #include <unordered_set>
-#include <singlelockqueue.cpp>
 #include <thread>
-using namespace std;
+
 using namespace AggregatorService;
 using namespace GraphExecutorService;
+using namespace std;
 
 class TestHashSet {
 private:
@@ -119,5 +119,13 @@ int main() {
 	aggregator->addNode(shared_ptr<Runnable>(new C()));
 	aggregator->addNode(shared_ptr<Runnable>(new D()));
 	aggregator->execute();
+	cout<<"Finished executing\n";
+	shared_ptr<Aggregator> aggregator2 = AggregatorFactory::newFixedThreadPoolAggregator();
+	aggregator2->addNode(shared_ptr<Runnable>(new A()));
+	aggregator2->addNode(shared_ptr<Runnable>(new B()));
+	aggregator2->addNode(shared_ptr<Runnable>(new C()));
+	aggregator2->addNode(shared_ptr<Runnable>(new D()));
+	aggregator2->execute();
+	cout<<"Finished executing 2\n";
 	return 0;
 }

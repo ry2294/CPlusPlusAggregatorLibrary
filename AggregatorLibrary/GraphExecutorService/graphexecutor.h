@@ -4,20 +4,19 @@
 #include "graphbuilder.h"
 #include <future>
 
-using namespace std;
-using namespace GraphBuilderService;
-
 namespace GraphExecutorService {
+	using namespace GraphBuilderService;
+
 	class GraphExecutor {
 	public:
-		virtual void execute(shared_ptr<Graph>) = 0;
+		virtual void execute(std::shared_ptr<Graph>) = 0;
 		virtual ~GraphExecutor() {}
 	};
 
 	class TaskPoolExecutor {
 	public:
-		virtual void submit(shared_ptr<Task>) = 0;
-		virtual shared_ptr<Task> take() = 0;
+		virtual void submit(std::shared_ptr<Task>) = 0;
+		virtual std::shared_ptr<Task> take() = 0;
 		virtual ~TaskPoolExecutor(){}
 	};
 	
@@ -33,16 +32,16 @@ namespace GraphExecutorService {
 
 	class ThreadPool {
 	public:
-		virtual void submit(pair<shared_ptr<Task>, shared_ptr<ThreadSafeQueue<shared_future<shared_ptr<Task>>>>>) = 0;
+		virtual void submit(std::pair<std::shared_ptr<Task>, std::shared_ptr<ThreadSafeQueue<std::shared_future<std::shared_ptr<Task>>>>>) = 0;
 		virtual ~ThreadPool() {}
 	};
 
 	class GraphExecutorFactory {
 	public:
-		static shared_ptr<ThreadSafeQueue<shared_future<shared_ptr<Task>>>> newSingleLockQueue();
-		static shared_ptr<TaskPoolExecutor> newQueueTaskExecutor();
-		static shared_ptr<GraphExecutor> newKhansGraphExecutor();
-		static shared_ptr<ThreadPool> newSingletonThreadPool();
+		static std::shared_ptr<ThreadSafeQueue<std::shared_future<std::shared_ptr<Task>>>> newSingleLockQueue();
+		static std::shared_ptr<TaskPoolExecutor> newQueueTaskExecutor();
+		static std::shared_ptr<GraphExecutor> newKhansGraphExecutor();
+		static std::shared_ptr<ThreadPool> newSingletonThreadPool();
 	};
 }
 

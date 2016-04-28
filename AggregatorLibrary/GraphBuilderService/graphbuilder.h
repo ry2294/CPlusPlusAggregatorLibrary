@@ -6,37 +6,35 @@
 #include <string>
 #include <queue>
 
-using namespace std;
-using namespace AggregatorService;
-
 namespace GraphBuilderService {
+	using namespace AggregatorService;
 	class Task {
 		public:
-			Task(shared_ptr<Runnable>);
-			unordered_set<string> getInDegree();
-			void addInDegree(string, shared_ptr<Runnable>);
-			void removeInDegree(string);
+			Task(std::shared_ptr<Runnable>);
+			std::unordered_set<std::string> getInDegree();
+			void addInDegree(std::string, std::shared_ptr<Runnable>);
+			void removeInDegree(std::string);
 			bool isInDegreeEmpty();
-			unordered_set<string> getOutDegree();
-			void addOutDegree(string);
-			shared_ptr<Runnable> getNode();
-			string getLabel();
+			std::unordered_set<std::string> getOutDegree();
+			void addOutDegree(std::string);
+			std::shared_ptr<Runnable> getNode();
+			std::string getLabel();
 			void run();
 			~Task();
 		private:
-			shared_ptr<Runnable> node;
-			unordered_map<string, shared_ptr<Runnable>> dependencies;
-			unordered_set<string> indegree;
-			unordered_set<string> outdegree;
+			std::shared_ptr<Runnable> node;
+			std::unordered_map<std::string, std::shared_ptr<Runnable>> dependencies;
+			std::unordered_set<std::string> indegree;
+			std::unordered_set<std::string> outdegree;
 	};
 
 	class Graph {
 	public:
-		virtual void addVertex(shared_ptr<Runnable>) = 0;
+		virtual void addVertex(std::shared_ptr<Runnable>) = 0;
 		virtual void constructGraph() = 0;
 		virtual bool isGraphCyclic() = 0;
-		virtual shared_ptr<Task> getTask(string) = 0;
-		virtual queue<shared_ptr<Task>> getIndependentTasks() = 0;
+		virtual std::shared_ptr<Task> getTask(std::string) = 0;
+		virtual std::queue<std::shared_ptr<Task>> getIndependentTasks() = 0;
 		virtual int size() = 0;
 		virtual ~Graph() {}
 	};
@@ -44,7 +42,7 @@ namespace GraphBuilderService {
 	class GraphBuilderFactory {
 	public:
 		GraphBuilderFactory() = delete;
-		static shared_ptr<Graph> newKhansGraphBuilder();
+		static std::shared_ptr<Graph> newKhansGraphBuilder();
 	};
 }
 
